@@ -19,7 +19,7 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
-@WebServlet("/washington")
+@WebServlet("/washington") //localhost:8080/washington
 public class WashingtonTimeServlet extends HttpServlet {
 
     @Override

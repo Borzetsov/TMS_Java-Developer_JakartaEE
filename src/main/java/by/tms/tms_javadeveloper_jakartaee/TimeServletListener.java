@@ -18,5 +18,6 @@ public class TimeServletListener implements ServletContextListener {
     public void contextInitialized(ServletContextEvent sce) {
         sce.getServletContext().setAttribute("contentType", "text/html; charset=UTF-8");
         sce.getServletContext().setAttribute("dateFormat", "HH:mm:ss");
+        sce.getServletContext().setAttribute("adultAge", "18");
     }
 }

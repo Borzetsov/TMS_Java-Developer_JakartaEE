@@ -1,5 +1,5 @@
 /**
- * Classname    MinskTimeServlet
+ * Classname    AgeCheckServlet
  * @version     0.01
  * @author      Aleksei Borzetsov
  * date         02.06.2026
@@ -15,21 +15,23 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
 
-@WebServlet("/minsk") //localhost:8080/minsk
-public class MinskTimeServlet extends HttpServlet {
+@WebServlet("/ageCheck") //localhost:8080/ageCheck?age=21
+public class AgeCheckServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        //Указать кодировку, иначе в браузере месиво
         ServletContext servletContext = getServletContext();
         resp.setContentType((String)servletContext.getAttribute("contentType"));
-        ZonedDateTime minskTime = ZonedDateTime.now(ZoneId.of("Europe/Minsk"));
-        DateTimeFormatter formatter = DateTimeFormatter
-                .ofPattern((String)servletContext.getAttribute("dateFormat"));
-        resp.getWriter().print("В Минске сейчас: " + minskTime.format(formatter));
+        String respValue;
+        try {
+            int adultAge = Integer.parseInt((String) servletContext.getAttribute("adultAge"));
+            int reqAge = Integer.parseInt(req.getParameter("age"));
+            respValue = (reqAge < adultAge)
+                    ? "Не совершеннолетний" : "Совершеннолетний";
+        } catch (NumberFormatException e) {
+            respValue = "Ошибка формата";
+        }
+        resp.getWriter().print(respValue);
     }
 }
