@@ -1,8 +1,8 @@
 /**
- * Classname    Book1DownloadServlet
+ * Classname    DownloadServlet
  * @version     0.01
  * @author      Aleksei Borzetsov
- * date         09.06.2026
+ * date         13.06.2026
  */
 
 package by.tms.tms_javadeveloper_jakartaee;
@@ -20,13 +20,27 @@ import java.io.OutputStream;
 import java.net.URISyntaxException;
 import java.net.URL;
 
-@WebServlet("/book1")
-public class Book1DownloadServlet extends HttpServlet {
+@WebServlet("/download")
+public class DownloadServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        // Передаем имя файла из папки resources/Books/
-        URL resource = getClass().getClassLoader().getResource("Books/Book1.txt");
+        String book = req.getParameter("res");
+        URL resource = switch (book) {
+            case "AVR_Assembler" ->
+                // Передаем имя файла из папки resources/Books/
+                    getClass().getClassLoader().getResource("Books/AVR_Assembler.pdf");
+            case "book1" ->
+                // Передаем имя файла из папки resources/Books/
+                    getClass().getClassLoader().getResource("Books/Book1.txt");
+            case "book2" ->
+                // Передаем имя файла из папки resources/Books/
+                    getClass().getClassLoader().getResource("Books/Book2.txt");
+            case "lab2" ->
+                // Передаем имя файла из папки resources/Books/
+                    getClass().getClassLoader().getResource("Books/lab2.s");
+            default -> null;
+        };
 
         if (resource == null) {
             resp.sendError(HttpServletResponse.SC_NOT_FOUND, "Файл не найден в ресурсах");
@@ -55,7 +69,7 @@ public class Book1DownloadServlet extends HttpServlet {
                 outStream.write(buffer, 0, bytesRead);
             }
         } catch (IOException e) {
-            resp.getWriter().print("err");
+            resp.getWriter().print("Ошибка скачивания файла!");
         }
     }
 }

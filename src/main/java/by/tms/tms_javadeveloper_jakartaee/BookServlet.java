@@ -33,13 +33,23 @@ public class BookServlet extends HttpServlet {
                     <h1>Choose a book</h1>
                     <ul>
                         <li>
-                            <a href="/book1">
+                            <a href="/download?res=AVR_Assembler">
+                                AVR_Assembler
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/download?res=book1">
                                 Book 1
                             </a>
                         </li>
                         <li>
-                            <a href="/book2">
+                            <a href="/download?res=book2">
                                 Book 2
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/download?res=lab2">
+                                lab2
                             </a>
                         </li>
                     </ul>
