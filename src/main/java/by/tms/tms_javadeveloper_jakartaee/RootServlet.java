@@ -2,7 +2,7 @@
  * Classname    RootServlet
  * @version     0.01
  * @author      Aleksei Borzetsov
- * date         09.06.2026
+ * date         05.08.2026
  */
 
 package by.tms.tms_javadeveloper_jakartaee;
@@ -20,32 +20,28 @@ public class RootServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
         String OG_HTML = """
-                <!doctype html>
+                <!DOCTYPE html>
                 <html lang="en">
-                  <head>
-                    <meta charset="utf-8">
-                    <meta name="viewport" content="width=device-width, initial-scale=1">
-                    <title>Home work 25</title>
-                  </head>
-                  <body>
-                    <h1>Hello, Guest!</h1>
-                    <h2>Books</h2>
-                        </div>
-                            <a href="/book">
-                                Download
-                            </a>
-                        </div>
-                        <div>
-                            <a href="/load-book">
-                                Upload
-                            </a>
-                        </div>
-                  </body>
+                <head>
+                    <meta charset="UTF-8">
+                    <title>Home Work 26</title>
+                </head>
+                <body style="background-color:black; color:white; font-size:30px; font-family:ms sans serif;">
+                    <div>
+                        <p>
+                            <span style="color:yellow;">&lt;</span>
+                            <span>Teach</span>
+                        </p>
+                        <p>Me</p>
+                        <p>
+                            <span>Skills</span>
+                            <span style="color:yellow;">/&gt;</span>
+                        </p>
+                    </div>
+                </body>
                 </html>
                 """;
-
-        resp.getWriter().println(OG_HTML);
+        resp.getWriter().print(OG_HTML);
     }
 }
