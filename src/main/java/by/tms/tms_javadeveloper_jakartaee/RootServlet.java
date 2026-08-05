@@ -27,18 +27,9 @@ public class RootServlet extends HttpServlet {
                     <meta charset="UTF-8">
                     <title>Home Work 26</title>
                 </head>
-                <body style="background-color:black; color:white; font-size:30px; font-family:ms sans serif;">
-                    <div>
-                        <p>
-                            <span style="color:yellow;">&lt;</span>
-                            <span>Teach</span>
-                        </p>
-                        <p>Me</p>
-                        <p>
-                            <span>Skills</span>
-                            <span style="color:yellow;">/&gt;</span>
-                        </p>
-                    </div>
+                <body>
+                    <p>Tasks:</p>
+                    <a href="/task1">Task 1</a>
                 </body>
                 </html>
                 """;
