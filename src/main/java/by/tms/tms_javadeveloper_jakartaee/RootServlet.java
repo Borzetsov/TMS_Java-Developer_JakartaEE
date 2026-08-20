@@ -2,7 +2,7 @@
  * Classname    RootServlet
  * @version     0.01
  * @author      Aleksei Borzetsov
- * date         05.08.2026
+ * date         06.08.2026
  */
 
 package by.tms.tms_javadeveloper_jakartaee;
@@ -14,25 +14,27 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 
-@WebServlet("/")
+@WebServlet("")
 public class RootServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String OG_HTML = """
-                <!DOCTYPE html>
-                <html lang="en">
-                <head>
-                    <meta charset="UTF-8">
-                    <title>Home Work 26</title>
-                </head>
-                <body>
-                    <p>Tasks:</p>
-                    <a href="/task1">Task 1</a>
-                </body>
-                </html>
-                """;
-        resp.getWriter().print(OG_HTML);
+        String OG_HTML;
+        try (InputStream is = getServletContext().getResourceAsStream("/index.html")) {
+            OG_HTML = new String(is.readAllBytes(), StandardCharsets.UTF_8);
+
+            if (OG_HTML == null) {
+                resp.sendError(HttpServletResponse.SC_NOT_FOUND);
+                return;
+            }
+
+            resp.setContentType("text/html;charset=UTF-8");
+            resp.getWriter().print(OG_HTML);
+        } catch (IOException e) {
+            resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        }
     }
 }

@@ -14,35 +14,27 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 
 @WebServlet("/task1")
 public class Task1Servlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String OG_HTML = """
-                <!DOCTYPE html>
-                <html lang="en">
-                <head>
-                    <meta charset="UTF-8">
-                    <title>Home Work 26 Task 1</title>
-                </head>
-                <body style="color:white; font-size:34px; font-family:ms sans serif;">
-                    <div style="width:160px; height:160px; background-color:black; padding:40px;">
-                        <p style="margin:0px; padding-top:20px;">
-                            <span style="color:yellow;">&lt;</span>
-                            <span>Teach</span>
-                        </p>
-                        <p style="margin:0px; padding-left:34px;">Me</p>
-                        <p style="margin:0px; padding-left:34px;">
-                            <span>Skills</span>
-                            <span style="color:yellow;">/&gt;</span>
-                        </p>
-                    </div>
-                    <a href="/">Back</a>
-                </body>
-                </html>
-                """;
-        resp.getWriter().print(OG_HTML);
+        String OG_HTML;
+        try (InputStream is = getServletContext().getResourceAsStream("/task1.html")) {
+            OG_HTML = new String(is.readAllBytes(), StandardCharsets.UTF_8);
+
+            if (OG_HTML == null) {
+                resp.sendError(HttpServletResponse.SC_NOT_FOUND);
+                return;
+            }
+
+            resp.setContentType("text/html;charset=UTF-8");
+            resp.getWriter().print(OG_HTML);
+        } catch (IOException e) {
+            resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        }
     }
 }
